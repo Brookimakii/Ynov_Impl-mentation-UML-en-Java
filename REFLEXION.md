@@ -2,7 +2,11 @@
 
 J'ai décider d'utiliser la dépendance Lombok afin de réduire la quantité de texte à écrire.
 
-L'annotation ```@Getter et @Setter``` replace tous les getter et setter associer à la classe.
+L'annotation ```@Getter et @Setter``` replace tous les getter et setter associé à la classe.
+
+Lien du Repo: https://github.com/Brookimakii/Ynov_Impl-mentation-UML-en-Java
+
+Je ne sais pas comment déclencher les actions alors j'ai ajouté le plugin JUnit au projet.
 
 # Étape 1: Faire Foo, Corge & Grault
 
@@ -214,3 +218,6 @@ public class Foo {
 ```
 
 Et ainsi tous les tests passent.
+
+## Difficultés rencontrées
+Je n'ai pas particulièrement rencontré de difficultés.
