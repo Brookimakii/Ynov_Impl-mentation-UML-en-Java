@@ -1,3 +1,6 @@
+package Activity1;
+
+import Activity1.Corge;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,7 +30,7 @@ public class Foo {
     }
 
     public void addGrault() {
-        Grault grault = new Grault(this); // Composition, Grault belongs to Foo
+        Grault grault = new Grault(this); // Composition, Activité_1.Grault belongs to Activité_1.Foo
         graults.add(grault);
     }
 
@@ -39,4 +42,5 @@ public class Foo {
         this.corge = corge;
         this.corge.setFoo(this);
     }
+
 }

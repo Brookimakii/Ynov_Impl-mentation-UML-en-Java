@@ -1,3 +1,5 @@
+package Activity1;
+
 import lombok.Getter;
 import lombok.Setter;
 

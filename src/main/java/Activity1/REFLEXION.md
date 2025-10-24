@@ -14,6 +14,8 @@ J'ai commencer par faire tous les paramères de la classe Foo
 
 ```java
 
+import Activity1.*;
+
 @Getter
 @Setter
 public class Foo {
@@ -30,38 +32,44 @@ public class Foo {
         this.qux = new Qux();
     }
 
-    public void addBaz(Baz baz) {
+    public void addBaz (Baz baz){
         this.bazs.add(baz);
     }
 
-    public void addGrault() {
-        Grault grault = new Grault(this); // Composition, Grault belongs to Foo
+    public void addGrault () {
+        Grault grault = new Grault(this); // Composition, Activity1.Grault belongs to Activity1.Foo
         graults.add(grault);
     }
 
 }
 ```
 
-Ensuite j'ai fait Corge & Grault puisqu'elles sont les seules classes (hors Foo) à avoir des proriétés et methodes
+Ensuite j'ai fait Activity1.Corge & Activity1.Grault puisqu'elles sont les seules classes (hors Activity1.Foo) à avoir des proriétés et methodes
 
 ```java
 
+import Activity1.Foo;
+
 @Getter
 @Setter
-public class Grault {
+public class Activité_1.
+
+Grault {
     private Foo foo;
 
-    public Grault(Foo foo) {
+    public Activity1.Grault(Foo foo) {
         this.foo = foo;
     }
 }
 
 @Getter
 @Setter
-public class Corge {
-    private Corge foo;
+public class Activité_1.
 
-    public Grault(Foo foo) {
+Corge {
+    private Activity1.Corge foo;
+
+    public Activity1.Grault(Foo foo) {
         this.foo = foo;
     }
 }
@@ -73,6 +81,10 @@ public class Corge {
 Malheureusement, corgeTest() ne fonctionne pas.
 
 ```java
+import Activity1.Bar;
+import Activity1.Corge;
+import Activity1.Foo;
+
 void corgeTest() {
     Foo foo = new Foo(new Bar());
     Corge firstCorge = new Corge(foo);
@@ -81,17 +93,21 @@ void corgeTest() {
 }
 ```
 
-En effet, rien dans le code n'assigne un Corge à Fool lors de l'initialisation d'un corge. Alors modifions Corge comme
+En effet, rien dans le code n'assigne un Activity1.Corge à Fool lors de l'initialisation d'un corge. Alors modifions Activity1.Corge comme
 suit:
 
 ```java
 
+import Activity1.Foo;
+
 @Getter
 @Setter
-public class Corge {
+public class Activité_1.
+
+Corge {
     private Foo foo;
 
-    public Corge(Foo foo) {
+    public Activity1.Corge(Foo foo) {
         this.foo = foo;
         this.foo.setCorge(this);
     }
@@ -110,17 +126,20 @@ void corgeTest() {
 }
 ```
 
-Un Deux Corge ne peuvent pas partager un Foo d'après le diagramme. Donc quand le deuxième Corge est créer, le premier
-Corge ne doit plus avoir de Foo associer. Pour cela on prend le foo et lorque setCorge et appeler, on supprime le foo
-dans le Corge déjà présent.
+Un Deux Activity1.Corge ne peuvent pas partager un Activity1.Foo d'après le diagramme. Donc quand le deuxième Activity1.Corge est créer, le premier
+Activity1.Corge ne doit plus avoir de Activity1.Foo associer. Pour cela on prend le foo et lorque setCorge et appeler, on supprime le foo
+dans le Activity1.Corge déjà présent.
 
 ```java
 
+
 @Getter
 @Setter
-public class Foo {
+public class Activité_1.
+
+Foo {
     //[...]
-    public void setCorge(Corge corge) {
+    public void setCorge (Corge corge){
         if (this.corge != null) {
             this.corge.setFoo(null);
         }
@@ -130,7 +149,7 @@ public class Foo {
 }
 ```
 
-Un nouveau test rate. En effet, Foo lors d'un ```setCorge(Corge corge)``` dans Foo, Foo n'est pas assigné dans Corge.
+Un nouveau test rate. En effet, Activity1.Foo lors d'un ```setCorge(Activity1.Corge corge)``` dans Activity1.Foo, Activity1.Foo n'est pas assigné dans Activity1.Corge.
 
 ```java
 void corgeTest() {
@@ -142,9 +161,11 @@ void corgeTest() {
 }
 ```
 
-Modifions un peu la méthod ```setCorge(Corge corge)```.
+Modifions un peu la méthod ```setCorge(Activity1.Corge corge)```.
 
 ```java
+import Activity1.Corge;
+
 public void setCorge(Corge corge) {
     if (this.corge != null) {
         this.corge.setFoo(null);
@@ -167,20 +188,24 @@ void corgeTest() {
 }
 ```
 
-En effet Set Corge ne modifie pas Foo. Modifions donc Corge. J'ai décidé de refactorer un peu, en effet, le constructeur
-et ```setFoo(Foo foo)``` avaient exactement le meme contenu. Le ```foo != null``` est essenciel puisque plus haut ont assigne null à setFoo()
+En effet Set Activity1.Corge ne modifie pas Activity1.Foo. Modifions donc Activity1.Corge. J'ai décidé de refactorer un peu, en effet, le constructeur
+et ```setFoo(Activity1.Foo foo)``` avaient exactement le meme contenu. Le ```foo != null``` est essenciel puisque plus haut ont assigne null à setFoo()
 
 ```java
 
+import Activity1.Foo;
+
 @Getter
-public class Corge {
+public class Activité_1.
+
+Corge {
     private Foo foo;
 
-    public Corge(Foo foo) {
+    public Activity1.Corge(Foo foo) {
         setFoo(foo);
     }
 
-    public void setFoo(Foo foo) {
+    public void setFoo (Foo foo){
         this.foo = foo;
         if (foo != null) {
             this.foo.setCorge(this);
@@ -195,8 +220,8 @@ java.lang.StackOverflowError
 En effet, setFoo() et setCorge() s'appel mutuellement pour stopper ça, on verifie si foo ou corge est déjà set dans l'objet correspondant si c'est le cas, alors on ne fait rien.
 
 ```java
-public class Corge {
-    public void setFoo(Foo foo) {
+public class Activity1.Corge {
+    public void setFoo(Activity1.Foo foo) {
         if (this.foo==foo) return;
         this.foo = foo;
         if (foo != null) {
@@ -205,8 +230,8 @@ public class Corge {
     }
 }
 @Getter
-public class Foo {
-    public void setCorge(Corge corge) {
+public class Activity1.Foo {
+    public void setCorge(Activity1.Corge corge) {
         if (this.corge==corge) return;
         if (this.corge != null) {
             this.corge.setFoo(null);

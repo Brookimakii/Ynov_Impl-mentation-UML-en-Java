@@ -1,4 +1,7 @@
+package Activity1;
+
 import lombok.Getter;
+import Activity1.Foo;
 
 @Getter
 public class Corge {
